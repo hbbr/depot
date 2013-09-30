@@ -6,7 +6,7 @@ public class AllTests{
 		suite.addTest(new TestSuite (TestYinsh.class));
 	return suite;
 }
-public static void main ( String args []){
+public static void main (String args []){
   junit.textui.TestRunner.run(AllTests.suite());
 }
 

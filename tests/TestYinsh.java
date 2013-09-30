@@ -1,6 +1,7 @@
 import junit.framework.*;
 
 public class TestYinsh extends TestCase{
+
 	public TestYinsh(String color){ super(color);}
 	
 	public void test1()
@@ -17,7 +18,7 @@ public class TestYinsh extends TestCase{
 	public void test3()
 	{
 		Yinsh r= new Yinsh();
-		assertTrue(r.put_ring('a',2,Yinsh.Case.ANoir) == Yinsh.Case.ANoir || r.put_ring('b',2,Yinsh.Case.ABlanc)==Yinsh.Case.ABlanc);
+		assertTrue(r.put_ring('b',2,Yinsh.Case.ANoir) == Yinsh.Case.ANoir || r.put_ring('c',2,Yinsh.Case.ABlanc)==Yinsh.Case.ABlanc);
 		assertTrue(r.nbanneau==1);	
 	}	
 	public void test4()
@@ -41,7 +42,16 @@ public class TestYinsh extends TestCase{
 		assertTrue(true);
 		}
 	}
-
-	
+	public void test6()
+	{
+		Yinsh memepos = new Yinsh();
+		try{
+		memepos.put_ring('a',4,Yinsh.Case.ANoir);
+		memepos.put_ring('a',4,Yinsh.Case.ABlanc);
+		assertTrue(true);
+		}catch(IllegalArgumentException exe){
+		assertTrue(false);
+		}
+	}
 
 }

@@ -76,22 +76,23 @@ public Case put_ring(char lettre, int chiffre, Case couleurA){
 	}
 
 	if(existe==true){
-
+		if(Ring[let][chiffre]!=Case.Rien){
 	i=i+1;
 	tour[i]=couleurA;
 	if(tour[i-1]==tour[i]){
-		throw new IllegalArgumentException();
+		throw new IllegalArgumentException("Pas le bon tour");
 	}
 	else{
 	cases = Ring[let][chiffre]=couleurA;
 	nbanneau = nbanneau + 1;
 	}
-	
-	
-	return cases;
+		return cases;
+	}else{
+		throw new IllegalArgumentException("Case utilisee");
+	}
 
 	}else{
-		throw new IllegalArgumentException();
+		throw new IllegalArgumentException("Mauvaise case");
 	}
 
     }
