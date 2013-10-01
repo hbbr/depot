@@ -4,7 +4,6 @@ import java.io.*;
 public class Yinsh
 {
 
-//Histoire 1
 public enum Color {BLACK,WHITE};
 public Color couleur;	
 public int nbanneau=0;
@@ -27,10 +26,11 @@ public Color current_color(){
 	return couleur;
 }
 
-//Histoire 2 
+
 Case[][] Ring = new Case[11][11]; 
 
-public enum Case {Rien,ABlanc,ANoir};
+public enum Case {Rien,ABlanc,ANoir,MNoir,MBlanc};
+
 
 public Case put_ring(char lettre, int chiffre, Case couleurA){	
 	
@@ -83,10 +83,11 @@ public Case put_ring(char lettre, int chiffre, Case couleurA){
 		throw new IllegalArgumentException("Pas le bon tour");
 	}
 	else{
-	cases = Ring[let][chiffre]=couleurA;
+	Ring[let][chiffre]=couleurA;
+	cases = Ring[let][chiffre];
 	nbanneau = nbanneau + 1;
 	}
-		return cases;
+		
 	}else{
 		throw new IllegalArgumentException("Case utilisee");
 	}
@@ -95,5 +96,112 @@ public Case put_ring(char lettre, int chiffre, Case couleurA){
 		throw new IllegalArgumentException("Mauvaise case");
 	}
 
+	return cases;
+
     }
+
+
+public boolean is_initialized(){
+	if(nbanneau==10){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+
+public Case put_marker(char lettre, int chiffre, Case couleurM){
+	
+	Case cases;
+	int let=(int)(lettre - 'a');
+	
+	if(couleurM==Case.MNoir && Ring[let][chiffre]==Case.ANoir){
+		Ring[let][chiffre]=Case.MNoir;
+		cases = Ring[let][chiffre];
+	}else{
+		throw new IllegalArgumentException("Mauvaise couleur");
+	}
+	
+	return cases;
+	}
+
+public Case move_ring(char lettreorig, int chiffreorig, int lettredest, int chiffredest, Case couleurM){
+
+	Case cases;
+	int letorig=(int)(lettreorig - 'a');	
+	int letdest=(int)(lettredest - 'a');
+	boolean test = verif(lettreorig, chiffreorig, lettredest, chiffredest, couleurM);	
+	
+
+	if(Ring[letdest][chiffredest]==null || Ring[letdest][chiffredest]==Case.ANoir){
+		
+		if(test==true){
+		cases = Ring[letdest][chiffredest]=couleurM;
+		}else{
+			throw new IllegalArgumentException("Piece sur la route");
+		}
+	}else{
+		throw new IllegalArgumentException("Deplacement non autorise");
+	}
+
+	return cases;
+
+}
+
+public boolean verif(char lettreorig, int chiffreorig, int lettredest, int chiffredest, Case couleurM){
+	
+	int letorig=(int)(lettreorig - 'a');
+	int letdest=(int)(lettredest - 'a');
+	int i=letorig;
+	int j=chiffreorig;
+	boolean verite=true;
+	while(i==letdest){
+		if(Ring[i][chiffreorig]!=null){
+			verite=false;
+		}
+		i++;
+	}
+	while(j==chiffredest){
+		if(Ring[letorig][j]!=null){
+			verite=false;
+		}	
+		j++;
+	}
+
+
+	return verite;
+}
+	
+	
+public void changer_couleur(char lettreorig, int chiffreorig, int lettredest, int chiffredest, Case couleurM){
+
+	int letorig=(int)(lettreorig - 'a');
+	int z=letorig;
+	int k=chiffreorig;
+	if(lettreorig!=lettredest){
+	while(z!=lettredest){
+		if(Ring[z][chiffreorig]==Case.MBlanc){
+		Ring[z][chiffreorig]=Case.MNoir;
+		}else{
+		Ring[z][chiffreorig]=Case.MBlanc;
+		}
+		z++;
+	}
+	}else{
+	while(k!=chiffredest){
+		if(Ring[letorig][k]==Case.MBlanc){
+		Ring[letorig][k]=Case.MNoir;
+		}else{
+		Ring[letorig][k]=Case.MBlanc;
+	}
+}
+	}
+}
+		
+
+
+
+
+
+
 }
