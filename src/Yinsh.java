@@ -8,6 +8,8 @@ public enum Color {BLACK,WHITE};
 public Color couleur;	
 public int nbanneau=0;
 public int i = 0;
+public int pointnoir=0;
+public int pointblanc=0;
 Case[] tour = new Case[100];
 
 public Yinsh(){
@@ -23,6 +25,13 @@ if(rand < 0.5){
 }
 
 public Color current_color(){
+	
+	if((nbanneau % 2)==0){
+		couleur=Color.BLACK;
+	}else{
+		couleur=Color.WHITE;
+	}
+
 	return couleur;
 }
 
@@ -121,6 +130,7 @@ public Case put_marker(char lettre, int chiffre, Case couleurM){
 	}else{
 		throw new IllegalArgumentException("Mauvaise couleur");
 	}
+		
 	
 	return cases;
 	}
@@ -193,13 +203,49 @@ public void changer_couleur(char lettreorig, int chiffreorig, int lettredest, in
 		Ring[letorig][k]=Case.MNoir;
 		}else{
 		Ring[letorig][k]=Case.MBlanc;
+		}
+	k++;
+	}
+    }
+}
+
+public void remove_row(char lettreorig, int chiffreorig, int lettredest, int chiffredest, Case couleurM){
+
+	int letorig=(int)(lettreorig - 'a');
+	int z=letorig;
+	int k=chiffreorig;
+	if(lettreorig!=lettredest){
+	while(z!=lettredest){
+		if(Ring[z][chiffreorig]==Case.MBlanc){
+		Ring[z][chiffreorig]=Case.Rien;
+		}else{
+		Ring[z][chiffreorig]=Case.Rien;
+		}
+		z++;
+	}
+	}else{
+	while(k!=chiffredest){
+		if(Ring[letorig][k]==Case.MBlanc){
+		Ring[letorig][k]=Case.Rien;
+		}else{
+		Ring[letorig][k]=Case.Rien;
+		}
+	k++;
+	}
+    }
+}
+
+public void remove_ring(char lettre, int chiffre, Case couleurA){
+
+	int let=(int)(lettre - 'a');
+	if(couleurA==Case.ABlanc){
+		Ring[let][chiffre]=Case.Rien;
+		pointblanc=pointblanc+1;
+	}else{
+		Ring[let][chiffre]=Case.Rien;
+		pointnoir=pointnoir+1;
 	}
 }
-	}
-}
-		
-
-
 
 
 
