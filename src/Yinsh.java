@@ -247,7 +247,38 @@ public void remove_ring(char lettre, int chiffre, Case couleurA){
 	}
 }
 
+/*public void position(char lettre, int chiffre, Case couleurA){
 
+	int let=(int)(lettre - 'a');
+	int nb = 0;
+	int[] position = new int[50];
+	while(Ring[let][nb]!=Case.MBlanc || Ring[let][nb]=Case.MNoir || nb<11){ 
+	if(Ring[let][nb]==Case.Rien){
+			
+	}
+	nb++;
 
+}*/
+
+public Color gagnantblitz(){
+
+	if(pointblanc>pointnoir){
+		return Color.WHITE;	
+	}else{
+		return Color.BLACK;
+	}
+}
+
+public Color gagnantnormal(){
+
+	Color couleur=Color.WHITE;
+	if(pointblanc>pointnoir && pointblanc==3){
+		couleur=Color.WHITE;	
+	}
+	if(pointnoir>pointblanc && pointnoir==3){
+		couleur=Color.BLACK;
+	}
+	return couleur;
+}
 
 }

@@ -157,5 +157,47 @@ public class TestYinsh extends TestCase{
 		
 		}
 
+	// Test Histoire 8
+
+
+	// Test Histoire 9
+
+		
+	public void test16()
+	{
+		Yinsh gagnant= new Yinsh();
+		gagnant.put_ring('e',4,Yinsh.Case.ABlanc);
+		gagnant.remove_ring('e',4,Yinsh.Case.ABlanc);
+		assertTrue(gagnant.gagnantblitz()==Yinsh.Color.WHITE);
+		}
+
+	// Test Histoire 10
+
+	
+	// Test Histoire 11
+	
+
+	// Test Histoire 12
+
+	public void test17()
+	{
+		Yinsh gagnantn= new Yinsh();
+		gagnantn.put_ring('e',4,Yinsh.Case.ABlanc);
+		gagnantn.put_ring('e',5,Yinsh.Case.ANoir);
+		gagnantn.put_ring('e',6,Yinsh.Case.ABlanc);
+		gagnantn.put_ring('e',7,Yinsh.Case.ANoir);
+		gagnantn.put_ring('e',8,Yinsh.Case.ABlanc);
+		gagnantn.remove_ring('e',4,Yinsh.Case.ABlanc);
+		gagnantn.remove_ring('e',6,Yinsh.Case.ABlanc);
+		gagnantn.remove_ring('e',8,Yinsh.Case.ABlanc);
+		assertTrue(gagnantn.gagnantnormal()==Yinsh.Color.WHITE);
+		}
+
+
+
+
+
+
+
 
 }
