@@ -87,7 +87,7 @@ public class TestYinsh extends TestCase{
 	{
 		Yinsh lol= new Yinsh();
 		lol.move_ring('d', 2, 'b', 5, Yinsh.Case.MNoir);
-		int let=(int)('b' - 'a');
+		int let= 'b' - 'a';
 		assertTrue(lol.Ring[let][5] == Yinsh.Case.MNoir);
 	}
 
@@ -127,10 +127,10 @@ public class TestYinsh extends TestCase{
 	public void test13()
 	{
 		Yinsh pesto= new Yinsh();
-		int let=(int)('e' - 'a');
+		int let= 'e' - 'a';
 		pesto.put_ring('e',4,Yinsh.Case.ANoir);
 		pesto.put_marker('e',4,Yinsh.Case.MNoir);
-		pesto.changer_couleur('e', 3, 'e', 5, Yinsh.Case.MNoir);
+		pesto.changer_couleur('e', 3, 'e', 5);
 		assertTrue(pesto.Ring[let][4] == Yinsh.Case.MBlanc);
 		}
 	
@@ -140,17 +140,17 @@ public class TestYinsh extends TestCase{
 	public void test14()
 	{
 		Yinsh pesti= new Yinsh();
-		int let=(int)('e' - 'a');
+		int let= 'e' - 'a';
 		pesti.put_ring('e',4,Yinsh.Case.ANoir);
 		pesti.put_marker('e',4,Yinsh.Case.MNoir);
-		pesti.remove_row('e', 3, 'e', 5, Yinsh.Case.MNoir);
+		pesti.remove_row('e', 3, 'e', 5);
 		assertTrue(pesti.Ring[let][4] == Yinsh.Case.Rien);
 		}
 	
 	public void test15()
 	{
 		Yinsh remove= new Yinsh();
-		int let=(int)('e' - 'a');
+		int let= 'e' - 'a';
 		remove.put_ring('e',4,Yinsh.Case.ABlanc);
 		remove.remove_ring('e',4,Yinsh.Case.ABlanc);
 		assertTrue(remove.Ring[let][4] == Yinsh.Case.Rien && remove.pointblanc==1);
