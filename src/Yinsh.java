@@ -152,48 +152,38 @@ public void move_ring(char lettreorig, int chiffreorig, int lettredest, int chif
 	}
 
 
-
 }
 
     boolean verif(char lettreorig, int chiffreorig, int lettredest, int chiffredest) {
         int letorig = lettreorig - 'a', letdest = lettredest - 'a';
         boolean verite = true;
-        for(int i=letorig;i==letdest;i++){
-            if (Ring[i][chiffreorig] != null){
-                verite = false;
-            }
+        for (int i = letorig; i == letdest; i++) {
+            if (Ring[i][chiffreorig] != null) verite = false;
         }
-        for(int j=chiffreorig;j==chiffredest;j++){
-            if (Ring[letorig][j] != null) {
-                verite = false;
-            }
+        for (int j = chiffreorig; j == chiffredest; j++) {
+            if (Ring[letorig][j] != null) verite = false;
         }
         return verite;
     }
 
 
-    public void changer_couleur(char lettreorig, int chiffreorig, int lettredest, int chiffredest){
+    public void changer_couleur(char lettreorig, int chiffreorig, int lettredest, int chiffredest) {
 
-	int letorig= lettreorig - 'a',z=letorig,k=chiffreorig;
-	if(lettreorig!=lettredest){
-	while(z!=lettredest){
-		if(Ring[z][chiffreorig]==Case.MBlanc){
-		Ring[z][chiffreorig]=Case.MNoir;
-		}else{
-		Ring[z][chiffreorig]=Case.MBlanc;
-		}
-		z++;
-	}
-	}else{
-	while(k!=chiffredest){
-		if(Ring[letorig][k]==Case.MBlanc){
-		Ring[letorig][k]=Case.MNoir;
-		}else{
-		Ring[letorig][k]=Case.MBlanc;
-		}
-	k++;
-	}
+        int letorig = lettreorig - 'a', z = letorig, k = chiffreorig;
+        if (lettreorig != lettredest) {
+            while (z != lettredest) {
+                if (Ring[z][chiffreorig] == Case.MBlanc) Ring[z][chiffreorig] = Case.MNoir;
+                else Ring[z][chiffreorig] = Case.MBlanc;
+                z++;
+            }
+        } else {
+            while (k != chiffredest) {
+                if (Ring[letorig][k] == Case.MBlanc) Ring[letorig][k] = Case.MNoir;
+                else Ring[letorig][k] = Case.MBlanc;
+                k++;
+        }
     }
+
 }
 
 public void remove_row(char lettreorig, int chiffreorig, int lettredest, int chiffredest){
