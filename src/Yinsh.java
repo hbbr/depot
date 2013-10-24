@@ -1,16 +1,13 @@
-import junit.framework.*;
-import java.io.*;
-
 public class Yinsh
 {
 
 public enum Color {BLACK,WHITE}
-private Color couleur;
-public int nbanneau=0;
-private int i = 0;
-private int pointnoir=0;
-public int pointblanc=0;
-private final Case[] tour = new Case[100];
+private Color m_couleur;
+public int m_nbAnneau =0;
+private int m_compteur = 0;
+private int m_pointNoir =0;
+public int m_pointBlanc =0;
+private final Case[] m_tourJoueur = new Case[100];
 
 public Yinsh(){
 
@@ -18,30 +15,30 @@ public Yinsh(){
 double rand=Math.random();
 
 if(rand < 0.5){
-	couleur=Color.BLACK;
+	m_couleur =Color.BLACK;
 }else{
-	couleur=Color.WHITE;
+	m_couleur =Color.WHITE;
 	}
 }
 
-public Color current_color(){
+public Color currentColor(){
 	
-	if((nbanneau % 2)==0){
-		couleur=Color.BLACK;
+	if((m_nbAnneau % 2)==0){
+		m_couleur =Color.BLACK;
 	}else{
-		couleur=Color.WHITE;
+		m_couleur =Color.WHITE;
 	}
 
-	return couleur;
+	return m_couleur;
 }
 
 
-final Case[][] Ring = new Case[11][11];
+final Case[][] m_terrainRing = new Case[11][11];
 
 public enum Case {Rien,ABlanc,ANoir,MNoir,MBlanc}
 
 
-    public Case put_ring(char lettre, int chiffre, Case couleurA){
+    public Case putRing(char lettre, int chiffre, Case couleurA){
 	
 		
 	Case cases;
@@ -85,16 +82,16 @@ public enum Case {Rien,ABlanc,ANoir,MNoir,MBlanc}
 	}
 
 	if(existe){
-		if(Ring[let][chiffre]!=Case.Rien){
-	i=i+1;
-	tour[i]=couleurA;
-	if(tour[i-1]==tour[i]){
+		if(m_terrainRing[let][chiffre]!=Case.Rien){
+	m_compteur = m_compteur +1;
+	m_tourJoueur[m_compteur]=couleurA;
+	if(m_tourJoueur[m_compteur -1]== m_tourJoueur[m_compteur]){
 		throw new IllegalArgumentException("Pas le bon tour");
 	}
 	else{
-	Ring[let][chiffre]=couleurA;
-	cases = Ring[let][chiffre];
-	nbanneau = nbanneau + 1;
+	m_terrainRing[let][chiffre]=couleurA;
+	cases = m_terrainRing[let][chiffre];
+	m_nbAnneau = m_nbAnneau + 1;
 	}
 		
 	}else{
@@ -110,29 +107,29 @@ public enum Case {Rien,ABlanc,ANoir,MNoir,MBlanc}
     }
 
 
-public boolean is_initialized(){
-    return nbanneau == 10;
+public boolean isInitialized(){
+    return m_nbAnneau == 10;
 
 }
 
 
-public Case put_marker(char lettre, int chiffre, Case couleurM){
+public Case putMarker(char lettre, int chiffre, Case couleurM){
 	
 	Case cases;
 	int let= lettre - 'a';
 	
-	if(couleurM ==Case.MNoir && Ring[let][chiffre]==Case.ANoir){
-		Ring[let][chiffre]=Case.MNoir;
-		cases = Ring[let][chiffre];
+	if(couleurM ==Case.MNoir && m_terrainRing[let][chiffre]==Case.ANoir){
+		m_terrainRing[let][chiffre]=Case.MNoir;
+		cases = m_terrainRing[let][chiffre];
 	}else{
-		throw new IllegalArgumentException("Mauvaise couleur");
+		throw new IllegalArgumentException("Mauvaise coloration");
 	}
 		
 	
 	return cases;
 	}
 
-public void move_ring(char lettreorig, int chiffreorig, int lettredest, int chiffredest, Case couleurM){
+public void moveRing(char lettreorig, int chiffreorig, int lettredest, int chiffredest, Case couleurM){
 
 
 
@@ -140,10 +137,10 @@ public void move_ring(char lettreorig, int chiffreorig, int lettredest, int chif
 	boolean test = verif(lettreorig, chiffreorig, lettredest, chiffredest);
 	
 
-	if(Ring[letdest][chiffredest]==null || Ring[letdest][chiffredest]==Case.ANoir){
+	if(m_terrainRing[letdest][chiffredest]==null || m_terrainRing[letdest][chiffredest]==Case.ANoir){
 		
 		if(test){
-		Ring[letdest][chiffredest]=couleurM;
+		m_terrainRing[letdest][chiffredest]=couleurM;
 		}else{
 			throw new IllegalArgumentException("Piece sur la route");
 		}
@@ -158,61 +155,61 @@ public void move_ring(char lettreorig, int chiffreorig, int lettredest, int chif
         int letorig = lettreorig - 'a', letdest = lettredest - 'a';
         boolean verite = true;
         for (int i = letorig; i == letdest; i++) {
-            if (Ring[i][chiffreorig] != null) verite = false;
+            if (m_terrainRing[i][chiffreorig] != null) verite = false;
         }
         for (int j = chiffreorig; j == chiffredest; j++) {
-            if (Ring[letorig][j] != null) verite = false;
+            if (m_terrainRing[letorig][j] != null) verite = false;
         }
         return verite;
     }
 
 
-    public void changer_couleur(char lettreorig, int chiffreorig, int lettredest, int chiffredest) {
+    public void changerCouleur(char lettreorig, int chiffreorig, int lettredest, int chiffredest) {
 
         int letorig = lettreorig - 'a', z = letorig, k = chiffreorig;
         if (lettreorig != lettredest) {
             while (z != lettredest) {
-                if (Ring[z][chiffreorig] == Case.MBlanc) Ring[z][chiffreorig] = Case.MNoir;
-                else Ring[z][chiffreorig] = Case.MBlanc;
+                if (m_terrainRing[z][chiffreorig] == Case.MBlanc) m_terrainRing[z][chiffreorig] = Case.MNoir;
+                else m_terrainRing[z][chiffreorig] = Case.MBlanc;
                 z++;
             }
         } else {
             while (k != chiffredest) {
-                if (Ring[letorig][k] == Case.MBlanc) Ring[letorig][k] = Case.MNoir;
-                else Ring[letorig][k] = Case.MBlanc;
+                if (m_terrainRing[letorig][k] == Case.MBlanc) m_terrainRing[letorig][k] = Case.MNoir;
+                else m_terrainRing[letorig][k] = Case.MBlanc;
                 k++;
         }
     }
 
 }
 
-public void remove_row(char lettreorig, int chiffreorig, int lettredest, int chiffredest){
+public void removeRow(char lettreorig, int chiffreorig, int lettredest, int chiffredest){
 
 	int letorig= lettreorig - 'a';
 	int z=letorig;
 	int k=chiffreorig;
 	if(lettreorig!=lettredest){
 	while(z!=lettredest){
-		Ring[z][chiffreorig]=Case.Rien;
+		m_terrainRing[z][chiffreorig]=Case.Rien;
 		z++;
 	}
 	}else{
 	while(k!=chiffredest){
-		 Ring[letorig][k]=Case.Rien;
+		 m_terrainRing[letorig][k]=Case.Rien;
 		 k++;
 	}
     }
 }
 
-public void remove_ring(char lettre, int chiffre, Case couleurA){
+public void removeRing(char lettre, int chiffre, Case couleurA){
 
 	int let= lettre - 'a';
 	if(couleurA==Case.ABlanc){
-		Ring[let][chiffre]=Case.Rien;
-		pointblanc=pointblanc+1;
+		m_terrainRing[let][chiffre]=Case.Rien;
+		m_pointBlanc = m_pointBlanc +1;
 	}else{
-		Ring[let][chiffre]=Case.Rien;
-		pointnoir=pointnoir+1;
+		m_terrainRing[let][chiffre]=Case.Rien;
+		m_pointNoir = m_pointNoir +1;
 	}
 }
 
@@ -221,8 +218,8 @@ public void remove_ring(char lettre, int chiffre, Case couleurA){
 	int let=(int)(lettre - 'a');
 	int nb = 0;
 	int[] position = new int[50];
-	while(Ring[let][nb]!=Case.MBlanc || Ring[let][nb]=Case.MNoir || nb<11){ 
-	if(Ring[let][nb]==Case.Rien){
+	while(m_terrainRing[let][nb]!=Case.MBlanc || m_terrainRing[let][nb]=Case.MNoir || nb<11){
+	if(m_terrainRing[let][nb]==Case.Rien){
 			
 	}
 	nb++;
@@ -231,7 +228,7 @@ public void remove_ring(char lettre, int chiffre, Case couleurA){
 
 public Color gagnantblitz(){
       Color couleur;
-	if(pointblanc>pointnoir){
+	if(m_pointBlanc > m_pointNoir){
 		couleur= Color.WHITE;
 	}else{
 		couleur=Color.BLACK;
@@ -242,10 +239,10 @@ public Color gagnantblitz(){
 public Color gagnantnormal(){
 
 	Color couleur=Color.WHITE;
-	if(pointblanc>pointnoir && pointblanc==3){
+	if(m_pointBlanc > m_pointNoir && m_pointBlanc ==3){
 		couleur=Color.WHITE;	
 	}
-	if(pointnoir>pointblanc && pointnoir==3){
+	if(m_pointNoir > m_pointBlanc && m_pointNoir ==3){
 		couleur=Color.BLACK;
 	}
 	return couleur;

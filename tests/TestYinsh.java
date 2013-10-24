@@ -6,42 +6,62 @@ public class TestYinsh extends TestCase{
 	// Test Histoire 1
 	public void test1()
 	{
-		Yinsh c= new Yinsh();
-		assertTrue(c.current_color() == Yinsh.Color.BLACK ||
-		c.current_color() == Yinsh.Color.WHITE );
+		Yinsh coco= new Yinsh();
+		assertTrue(coco.currentColor() == Yinsh.Color.BLACK ||
+		coco.currentColor() == Yinsh.Color.WHITE );
 	}
+    public void test18()
+    {
+        Yinsh coloration= new Yinsh();
+        coloration.putRing('b', 2, Yinsh.Case.ANoir);
+        assertTrue(coloration.currentColor() == Yinsh.Color.WHITE ||
+                coloration.currentColor() == Yinsh.Color.BLACK );
+    }
 	// Test Histoire 2.1	
 	public void test2()
 	{
 		Yinsh nb= new Yinsh();
-		assertTrue(nb.nbanneau==0);
+		assertTrue(nb.m_nbAnneau ==0);
 	}
 
 	// Test Histoire 2.2
 	public void test3()
 	{
 		Yinsh r= new Yinsh();
-		assertTrue(r.put_ring('b',2,Yinsh.Case.ANoir) == Yinsh.Case.ANoir || r.put_ring('c',2,Yinsh.Case.ABlanc)==Yinsh.Case.ABlanc);
-		assertTrue(r.nbanneau==1);	
+		assertTrue(r.putRing('b', 2, Yinsh.Case.ANoir) == Yinsh.Case.ANoir || r.putRing('c', 2, Yinsh.Case.ABlanc)==Yinsh.Case.ABlanc);
+		assertTrue(r.m_nbAnneau ==1);
 	}	
 	// Test Histoire 2.3
 	public void test4()
 	{
 		Yinsh execpt= new Yinsh();
 		try {
-		execpt.put_ring('a',1,Yinsh.Case.ANoir);
+		execpt.putRing('a', 1, Yinsh.Case.ANoir);
 		assertTrue(false);
 		}catch(IllegalArgumentException e){
 		assertTrue(true);
 		}
 	}
+
+    public void test22()
+    {
+        Yinsh execption= new Yinsh();
+        try {
+            execption.putRing('a', 5, Yinsh.Case.ANoir);
+            execption.putRing('a', 5, Yinsh.Case.ABlanc);
+            assertTrue(true);
+        }catch(IllegalArgumentException e){
+            assertTrue(false);
+        }
+    }
+
 	// Test Histoire 2.4
 	public void test5()
 	{
 		Yinsh tour= new Yinsh();
 		try {
-		tour.put_ring('a',4,Yinsh.Case.ANoir);
-		tour.put_ring('b',5,Yinsh.Case.ANoir);
+		tour.putRing('a', 4, Yinsh.Case.ANoir);
+		tour.putRing('b', 5, Yinsh.Case.ANoir);
 		assertTrue(false);
 		}catch(IllegalArgumentException ex){
 		assertTrue(true);
@@ -52,8 +72,8 @@ public class TestYinsh extends TestCase{
 	{
 		Yinsh memepos = new Yinsh();
 		try{
-		memepos.put_ring('a',4,Yinsh.Case.ANoir);
-		memepos.put_ring('a',4,Yinsh.Case.ABlanc);
+		memepos.putRing('a', 4, Yinsh.Case.ANoir);
+		memepos.putRing('a', 4, Yinsh.Case.ABlanc);
 		assertTrue(true);
 		}catch(IllegalArgumentException exe){
 		assertTrue(false);
@@ -63,47 +83,59 @@ public class TestYinsh extends TestCase{
 	public void test7()
 	{
 		Yinsh init = new Yinsh();
-		init.put_ring('a',4,Yinsh.Case.ANoir);
-		init.put_ring('b',4,Yinsh.Case.ABlanc);
-		init.put_ring('c',4,Yinsh.Case.ANoir);
-		init.put_ring('d',4,Yinsh.Case.ABlanc);
-		init.put_ring('e',4,Yinsh.Case.ANoir);
-		init.put_ring('f',4,Yinsh.Case.ABlanc);
-		init.put_ring('g',4,Yinsh.Case.ANoir);
-		init.put_ring('h',4,Yinsh.Case.ABlanc);
-		init.put_ring('i',4,Yinsh.Case.ANoir);
-		init.put_ring('j',8,Yinsh.Case.ABlanc);
-		assertTrue(init.is_initialized());
+		init.putRing('k', 7, Yinsh.Case.ANoir);
+		init.putRing('b', 4, Yinsh.Case.ABlanc);
+		init.putRing('c', 4, Yinsh.Case.ANoir);
+		init.putRing('d', 4, Yinsh.Case.ABlanc);
+		init.putRing('e', 4, Yinsh.Case.ANoir);
+		init.putRing('f', 4, Yinsh.Case.ABlanc);
+		init.putRing('g', 4, Yinsh.Case.ANoir);
+		init.putRing('h', 4, Yinsh.Case.ABlanc);
+		init.putRing('i', 4, Yinsh.Case.ANoir);
+		init.putRing('j', 8, Yinsh.Case.ABlanc);
+		assertTrue(init.isInitialized());
 	}
 	// Test Histoire 5
 	public void test8()
 	{
 		Yinsh marker= new Yinsh();
-		marker.put_ring('d',2,Yinsh.Case.ANoir);
-		assertTrue(marker.put_marker('d',2,Yinsh.Case.MNoir) == Yinsh.Case.MNoir);
+		marker.putRing('d', 2, Yinsh.Case.ANoir);
+		assertTrue(marker.putMarker('d', 2, Yinsh.Case.MNoir) == Yinsh.Case.MNoir);
 	}
-		
-	public void test9()
+
+    public void test21()
+    {
+        Yinsh marken= new Yinsh();
+        try{
+        marken.putRing('d', 2, Yinsh.Case.ABlanc);
+        marken.putMarker('d', 2, Yinsh.Case.MBlanc);
+        assertTrue(false);
+        }catch(IllegalArgumentException exec){
+        assertTrue(true);
+        }
+    }
+
+    public void test9()
 	{
 		Yinsh lol= new Yinsh();
-		lol.move_ring('d', 2, 'b', 5, Yinsh.Case.MNoir);
+		lol.moveRing('d', 2, 'b', 5, Yinsh.Case.MNoir);
 		int let= 'b' - 'a';
-		assertTrue(lol.Ring[let][5] == Yinsh.Case.MNoir);
+		assertTrue(lol.m_terrainRing[let][5] == Yinsh.Case.MNoir);
 	}
 
 	public void test10()
 	{
 		Yinsh marktes= new Yinsh();
-		marktes.put_ring('a',4,Yinsh.Case.ANoir);
-		assertTrue(marktes.put_marker('a',4,Yinsh.Case.MNoir)==Yinsh.Case.MNoir);
+		marktes.putRing('a', 4, Yinsh.Case.ANoir);
+		assertTrue(marktes.putMarker('a', 4, Yinsh.Case.MNoir)==Yinsh.Case.MNoir);
 	}
 
 	public void test11()
 	{
 		Yinsh testo= new Yinsh();
 		try{
-		testo.put_ring('a',4,Yinsh.Case.ANoir);
-		testo.move_ring('d', 2, 'a', 4, Yinsh.Case.MNoir);
+		testo.putRing('a', 4, Yinsh.Case.ANoir);
+		testo.moveRing('d', 2, 'a', 4, Yinsh.Case.MNoir);
 		assertTrue(true);
 		}catch(IllegalArgumentException e){
 		assertTrue(false);
@@ -114,8 +146,8 @@ public class TestYinsh extends TestCase{
 	{
 		Yinsh testi= new Yinsh();
 		try{
-		testi.put_ring('a',3,Yinsh.Case.ANoir);
-		testi.move_ring('a', 2, 'a', 4, Yinsh.Case.MNoir);
+		testi.putRing('a', 3, Yinsh.Case.ANoir);
+		testi.moveRing('a', 2, 'a', 4, Yinsh.Case.MNoir);
 		assertTrue(true);
 		}catch(IllegalArgumentException ex){
 		assertTrue(false);
@@ -128,12 +160,11 @@ public class TestYinsh extends TestCase{
 	{
 		Yinsh pesto= new Yinsh();
 		int let= 'e' - 'a';
-		pesto.put_ring('e',4,Yinsh.Case.ANoir);
-		pesto.put_marker('e',4,Yinsh.Case.MNoir);
-		pesto.changer_couleur('e', 3, 'e', 5);
-		assertTrue(pesto.Ring[let][4] == Yinsh.Case.MBlanc);
+		pesto.putRing('e', 4, Yinsh.Case.ANoir);
+		pesto.putMarker('e', 4, Yinsh.Case.MNoir);
+		pesto.changerCouleur('e', 3, 'e', 5);
+		assertTrue(pesto.m_terrainRing[let][4] == Yinsh.Case.MBlanc);
 		}
-	
 
 	// Test Histoire 7
 
@@ -141,19 +172,20 @@ public class TestYinsh extends TestCase{
 	{
 		Yinsh pesti= new Yinsh();
 		int let= 'e' - 'a';
-		pesti.put_ring('e',4,Yinsh.Case.ANoir);
-		pesti.put_marker('e',4,Yinsh.Case.MNoir);
-		pesti.remove_row('e', 3, 'e', 5);
-		assertTrue(pesti.Ring[let][4] == Yinsh.Case.Rien);
+		pesti.putRing('e', 4, Yinsh.Case.ANoir);
+		pesti.putMarker('e', 4, Yinsh.Case.MNoir);
+		pesti.removeRow('e', 3, 'e', 5);
+		assertTrue(pesti.m_terrainRing[let][4] == Yinsh.Case.Rien);
 		}
-	
+
+
 	public void test15()
 	{
 		Yinsh remove= new Yinsh();
 		int let= 'e' - 'a';
-		remove.put_ring('e',4,Yinsh.Case.ABlanc);
-		remove.remove_ring('e',4,Yinsh.Case.ABlanc);
-		assertTrue(remove.Ring[let][4] == Yinsh.Case.Rien && remove.pointblanc==1);
+		remove.putRing('e', 4, Yinsh.Case.ABlanc);
+		remove.removeRing('e', 4, Yinsh.Case.ABlanc);
+		assertTrue(remove.m_terrainRing[let][4] == Yinsh.Case.Rien && remove.m_pointBlanc ==1);
 		
 		}
 
@@ -166,10 +198,17 @@ public class TestYinsh extends TestCase{
 	public void test16()
 	{
 		Yinsh gagnant= new Yinsh();
-		gagnant.put_ring('e',4,Yinsh.Case.ABlanc);
-		gagnant.remove_ring('e',4,Yinsh.Case.ABlanc);
+		gagnant.putRing('e', 4, Yinsh.Case.ABlanc);
+		gagnant.removeRing('e', 4, Yinsh.Case.ABlanc);
 		assertTrue(gagnant.gagnantblitz()==Yinsh.Color.WHITE);
 		}
+    public void test19()
+    {
+        Yinsh gagner= new Yinsh();
+        gagner.putRing('d', 4, Yinsh.Case.ANoir);
+        gagner.removeRing('d', 4, Yinsh.Case.ANoir);
+        assertTrue(gagner.gagnantblitz()==Yinsh.Color.BLACK);
+    }
 
 	// Test Histoire 10
 
@@ -182,16 +221,30 @@ public class TestYinsh extends TestCase{
 	public void test17()
 	{
 		Yinsh gagnantn= new Yinsh();
-		gagnantn.put_ring('e',4,Yinsh.Case.ABlanc);
-		gagnantn.put_ring('e',5,Yinsh.Case.ANoir);
-		gagnantn.put_ring('e',6,Yinsh.Case.ABlanc);
-		gagnantn.put_ring('e',7,Yinsh.Case.ANoir);
-		gagnantn.put_ring('e',8,Yinsh.Case.ABlanc);
-		gagnantn.remove_ring('e',4,Yinsh.Case.ABlanc);
-		gagnantn.remove_ring('e',6,Yinsh.Case.ABlanc);
-		gagnantn.remove_ring('e',8,Yinsh.Case.ABlanc);
+		gagnantn.putRing('e', 4, Yinsh.Case.ABlanc);
+		gagnantn.putRing('e', 5, Yinsh.Case.ANoir);
+		gagnantn.putRing('e', 6, Yinsh.Case.ABlanc);
+		gagnantn.putRing('e', 7, Yinsh.Case.ANoir);
+		gagnantn.putRing('e', 8, Yinsh.Case.ABlanc);
+		gagnantn.removeRing('e', 4, Yinsh.Case.ABlanc);
+		gagnantn.removeRing('e', 6, Yinsh.Case.ABlanc);
+		gagnantn.removeRing('e', 8, Yinsh.Case.ABlanc);
 		assertTrue(gagnantn.gagnantnormal()==Yinsh.Color.WHITE);
 		}
+
+    public void test20()
+    {
+        Yinsh gagnern= new Yinsh();
+        gagnern.putRing('e', 4, Yinsh.Case.ANoir);
+        gagnern.putRing('e', 5, Yinsh.Case.ABlanc);
+        gagnern.putRing('e', 6, Yinsh.Case.ANoir);
+        gagnern.putRing('e', 7, Yinsh.Case.ABlanc);
+        gagnern.putRing('e', 8, Yinsh.Case.ANoir);
+        gagnern.removeRing('e', 4, Yinsh.Case.ANoir);
+        gagnern.removeRing('e', 6, Yinsh.Case.ANoir);
+        gagnern.removeRing('e', 8, Yinsh.Case.ANoir);
+        assertTrue(gagnern.gagnantnormal()==Yinsh.Color.BLACK);
+    }
 
 
 
